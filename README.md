@@ -1,75 +1,70 @@
 # Browser-History-Navigation
 Stack-based browser history simulation in C. Supports visit(), back(n), forward(n), go(n), and showHistory(). Demonstrates how real browsers manage navigation using back and forward stacks.
 
-A lightweight and educational C project that simulates how real web browsers manage navigation history.
-It uses two stacks to replicate browser-like operations such as:
-	•	visit(url)
-	•	back() / back(n)
-	•	forward() / forward(n)
-	•	go(n)
-	•	showHistory()
+A lightweight C project that simulates how real web browsers manage navigation history using stack-based logic.  
+It replicates essential browser operations such as visiting new pages, going back/forward (single or multiple steps), and displaying full navigation history. Inspired by the JavaScript History API.
 
-The project is inspired by the JavaScript History API, which exposes methods for moving through and manipulating the browser’s session history.
+---
 
-⸻
+## Features
 
-Features
+### Core Navigation
+- `visit(url)` – open a new page  
+- `back()` / `back(n)` – move backward through history  
+- `forward()` / `forward(n)` – move forward through history  
+- `go(n)` – jump directly (negative = back, positive = forward)  
+- `showHistory()` – display full stack-based history view  
 
-Core Navigation
-	•	Visit new pages
-	•	Back navigation (single-step or multi-step)
-	•	Forward navigation (single-step or multi-step)
+### Extended Functionality
+- Multi-step movement similar to `history.go(n)`
+- Clears forward stack on new visits (like real browsers)
+- Tracks current page and stack contents
+- Uses two independent stacks to model browser navigation
 
-Extended Functionality
-	•	history.go(n) style movement (negative = back, positive = forward)
-	•	Stack-based history storage
-	•	Accurate clearing of forward history when visiting a new page
-	•	Current page tracking
-
-⸻
-
-Visual History View
-
-Use showHistory() to display the simulated browser history:
-
+### History Visualization
+```
 -3. example.com
 -2. site.com
 -1. pageA.com
- 0. currentPage.com  <-- you are here
- 1. pageB.com
- 2. pageC.com
+0. currentPage.com  <– you are here
+1. pageB.com
+2. pageC.com
+```
+Back history = negative numbers  
+Forward history = positive numbers  
 
-Back = negative
-Forward = positive
+---
 
-Project Structure
+## Project Structure
 
+```
 /BrowserHistory
-│
 ├── browser_history.c      // Main source code
 ├── README.md              // Project documentation
-└── LICENSE (optional)     // If you choose to add one
+└── LICENSE (optional)
+```
+---
 
-⸻
+## How It Works
 
-How It Works
+The system uses **two stacks**:
 
-The browser history is implemented using two stacks:
-	•	backStack → pages behind the current page
-	•	forwardStack → pages ahead of the current page
+- **backStack** → for previously visited pages  
+- **forwardStack** → for pages ahead of the current location  
 
-Operations move pages between these stacks:
+Browser-like behavior is achieved by moving pages between these stacks:
 
-Action	backStack	forwardStack	currentPage
-visit(url)	push current	clear	url
-back(n)	pop n to current	push each previous current	last popped
-forward(n)	pop n to current	push each previous current	last popped
+| Action        | backStack              | forwardStack            | currentPage     |
+|---------------|-------------------------|--------------------------|------------------|
+| visit(url)    | push current            | cleared                  | url              |
+| back(n)       | pop n → current         | push previous currents   | popped element   |
+| forward(n)    | pop n → current         | push previous currents   | popped element   |
 
+---
 
-⸻
+## Example Terminal Session
 
-Example Usage
-
+```
 === Browser ===
 Current Page: google.com
 1. Visit New Page
@@ -77,37 +72,34 @@ Current Page: google.com
 3. Forward
 4. Show History
 5. Exit
+```
+The program supports full interactive navigation with real-time history updates.
 
-Supports interactive navigation and history exploration.
+---
 
-⸻
+## Why This Project?
 
-Why This Project?
+This project helps learners understand:
 
-This project is designed to help students and developers understand:
-	•	How browsers manage navigation history internally
-	•	How stack-based navigation works
-	•	How multi-step movement (history.go(n)) is implemented
-	•	How back/forward interactions modify history
+- How browser navigation logically works  
+- How stacks model backward/forward history  
+- How APIs like `history.back()`, `history.forward()`, and `history.go()` behave  
+- How to design and debug stack-based systems  
 
-Perfect for those learning Data Structures, C programming, or browser internals.
+Great for beginners in **C programming**, **Data Structures**, or **browser internals**.
 
-⸻
+---
 
-Inspiration
+## Inspiration
 
-This project takes inspiration from the Web History API, which exposes methods allowing backward and forward navigation, as well as manipulating the session history stack.
+Inspired by the **Web History API**, which:
 
-“It exposes useful methods and properties that let you navigate back and forth through the user’s history, and manipulate the contents of the history stack.”
+> “Exposes useful methods that let you navigate back and forth through the user's history, and manipulate the contents of the history stack.”
 
-⸻
+This project recreates similar behavior in pure C.
 
-License
+---
 
-You can add any license you prefer: MIT, Apache 2.0, GPL, etc.
+Feel free to open issues or submit pull requests!  
+Improvements, optimizations, and new features are welcome.
 
-⸻
-
-Contributions
-
-Pull requests, suggestions, and improvements are welcome!
